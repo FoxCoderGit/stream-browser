@@ -1,0 +1,12 @@
+<resources>
+    <string name="media_count">Медиа · %1$d</string>
+    <plurals name="bookmark_count">
+        <item quantity="one">%1$d закладка</item>
+        <item quantity="few">%1$d закладки</item>
+        <item quantity="many">%1$d закладок</item>
+        <item quantity="other">%1$d закладок</item>
+    </plurals>
+    <string name="detector_ready">Поиск медиа включён · найдено: %1$d</string>
+    <string name="detector_starting">Запуск поиска медиа · найдено: %1$d</string>
+    <string name="detector_unavailable">Автопоиск недоступен · можно скачать по ссылке</string>
+</resources>

@@ -1,0 +1,7 @@
+{
+  "upstream": "https://maven.mozilla.org/maven2/org/mozilla/geckoview/geckoview/160.0.20261116130455/geckoview-160.0.20261116130455.aar",
+  "sha256": "dba77755f0d02ab4a19f4b8cd63e6a57accf5c44c95a040724ab4a92527e1193",
+  "module": "modules/GeckoViewStartup.sys.mjs",
+  "patchSha256": "1faae414ab594af8c05d8f8319a9de6e576500242ecd1f705947373130fdf822",
+  "method": "engine module patch; native libxul unchanged; no WebExtension"
+}

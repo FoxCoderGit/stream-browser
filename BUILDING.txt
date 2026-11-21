@@ -1,0 +1,94 @@
+Stream Browser — Android preview, 0.3.2
+
+Requirements
+  Android 10+ (API 29), arm64-v8a or x86_64.
+  Build: JDK 21, Python 3, Android SDK 37.2, NDK 27.2.12479018,
+  CMake 3.22.1. Gradle wrapper downloads Gradle 9.4.1.
+  Android Gradle Plugin 9.2.1 currently warns that 37.2 exceeds its tested
+  SDK level; it compiles with the installed 37.2 platform.
+
+Prepare dependencies (from this folder)
+  python tools/prepare_gecko.py
+  python tools/prepare_runtime.py
+
+  These scripts verify upstream SHA-256 checksums and record provenance.
+  The Gecko package is patched inside assets/omni.ja. It is NOT an extension.
+  The modification is privileged JavaScript in GeckoViewStartup.sys.mjs;
+  libxul itself is unchanged. The complete patch and original module live
+  in gecko/. Updating Gecko requires reviewing the bridge and retesting.
+
+Build
+  Point local.properties sdk.dir to your SDK (escape the drive colon).
+  Use Android Studio's JBR/JDK 21 as JAVA_HOME for Gradle.
+  ./gradlew assembleDebug testDebugUnitTest lintDebug
+
+  Windows paths containing Cyrillic can break Gradle's test worker.
+  Use the supplied staging script instead:
+    powershell -ExecutionPolicy Bypass -File tools/build.ps1
+  It copies sources into LocalAppData/StreamBrowserBuild, builds there,
+  and copies the APK and reports back into artifacts/.
+
+  To run JNI tests on Windows, install Visual Studio C++ Build Tools and
+  set JAVA_HOME to a full JDK with include/jni.h before invoking:
+    powershell -ExecutionPolicy Bypass -File tools/build.ps1 -NativeTests
+  The script uses Android Studio's JBR for Gradle and the full JDK for JNI.
+  Without this switch the JNI-dependent unit tests are explicitly skipped.
+
+  Engine adapter tests:
+    node --test tools/test-observer.cjs
+
+Architecture
+  app/src/main/cpp/core.cpp: media classification, adaptive connection count,
+    overflow-safe byte-range layout, process-group cancellation.
+  DirectDownload.java: HTTP transport, scoped credentials, range validation,
+    ETag-bound resume, retries, sequential fallback, file assembly.
+  ExtractorProcess.java: independently implemented CLI process adapter.
+    Python, yt-dlp, QuickJS, FFmpeg and aria2 run as separate programs.
+    The GPL Android wrapper classes are NOT linked into the application.
+  DownloadService.java: persistent encrypted job contexts, foreground queue,
+    system timeout handling, notifications, MediaStore export.
+  gecko/stream-observer.js and StreamSelection*.sys.mjs: response metadata,
+    current player selection and on-demand session context.
+
+Use
+  Open a site and play the media. Tap Media to inspect confirmed sources.
+  For YouTube and extractor-supported pages, choose the yt-dlp page action.
+  For an arbitrary HTTP(S) file, use 'Скачать по ссылке' in the browser menu.
+  Settings offer automatic or manual connections and a quality cap.
+  Jobs run one at a time with parallel fragments/ranges within a job.
+  Downloads are exported to Download/StreamBrowser.
+  Tap an unfinished job to retry/resume it. Expired URLs require opening
+  the page again and creating a fresh job. Automatic token renewal is absent.
+
+Known scope and limitations
+  This is an alpha, not a finished browser or universal downloader.
+  The Gecko hook, in-page player switching, and a direct download into
+  Downloads/StreamBrowser were smoke-tested on an Android 16 ARM64 device.
+  This does not provide end-to-end coverage for every extractor, site login
+  or HLS/DASH profile.
+  C++ owns classification and scheduling; HTTP transport/UI are Java.
+  No DRM bypass, MSE reconstruction, WebRTC capture, or guaranteed support
+  for every service. HLS/DASH handling is delegated to yt-dlp/FFmpeg.
+  Bearer Authorization is supported on direct files with origin scoping.
+  Bearer-authenticated manifests are rejected rather than leaking a global
+  Authorization header to CDN hosts. Cookies are domain/path-scoped.
+  Live recording UI, tabs, prompt/file-picker delegates, bandwidth feedback,
+  automatic extractor updates and automatic post-reboot resume are pending.
+  Connection defaults are a CPU/RAM/network/power heuristic, not a benchmark.
+  Android foreground-service time limits still apply; tasks can be retried.
+  Direct resume requires a strong ETag and a valid range response. Otherwise
+  retry starts a sequential download from the beginning.
+  Cancellation during runtime extraction may require extraction on retry.
+  Raw extractor diagnostics are deliberately not retained because they can
+  contain credentials. Known HTTP and extractor failures are mapped to
+  fixed messages without copying raw data into the job list.
+  Job contexts use Android Keystore AES-GCM. Temporary cookie files are
+  private, removed on completion, and cleaned after process restart.
+
+Release
+  Debug APKs are for testing. No release signing key was generated.
+  Release enables R8 and native symbol stripping, which make analysis harder
+  but do not prevent reverse engineering. This prototype's engine adapter is
+  readable JavaScript. Move only minimal capture glue into a native Gecko
+  fork if stronger resistance is needed, keeping proprietary logic separate.
+  See THIRD_PARTY.txt before distributing binaries.

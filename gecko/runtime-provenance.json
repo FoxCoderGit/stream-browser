@@ -1,0 +1,17 @@
+[
+  {
+    "source": "https://repo.maven.apache.org/maven2/io/github/junkfood02/youtubedl-android/library/0.18.1/library-0.18.1.aar",
+    "sha256": "579b5fb480892b1abc2b218c2089699d52759cc8d7ba256bf876453f0365faef",
+    "extracted": "CLI executable payloads and their dependencies; no classes.jar"
+  },
+  {
+    "source": "https://repo.maven.apache.org/maven2/io/github/junkfood02/youtubedl-android/ffmpeg/0.18.1/ffmpeg-0.18.1.aar",
+    "sha256": "0a87ffa6cf912b0fe76c1a99b9107f543ee2f247935fae2c71f0822eb7bc5f49",
+    "extracted": "CLI executable payloads and their dependencies; no classes.jar"
+  },
+  {
+    "source": "https://repo.maven.apache.org/maven2/io/github/junkfood02/youtubedl-android/aria2c/0.18.1/aria2c-0.18.1.aar",
+    "sha256": "1dc1fff42d18b42ba9a60a5688530d7f14dda8bf9450178b18ccd84a1bff4311",
+    "extracted": "CLI executable payloads and their dependencies; no classes.jar"
+  }
+]

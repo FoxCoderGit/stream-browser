@@ -1,0 +1,47 @@
+This repository has not been assigned a public license by its owner.
+Third-party components retain their own licenses.
+
+Material Symbols Rounded by Google — Apache License 2.0.
+  https://github.com/google/material-design-icons
+  SVGs at revision 10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7, converted to
+  Android vector drawables by tools/prepare_icons.py.
+  See LICENSE-MATERIAL-SYMBOLS.txt.
+
+GeckoView 160.0.20261116130455 — Mozilla Public License 2.0.
+  https://www.mozilla.org/MPL/2.0/
+  Original source revision: b1145b0710192f716be5f59f5b2dfeed650d5294
+  https://hg.mozilla.org/releases/mozilla-release/rev/b1145b0710192f716be5f59f5b2dfeed650d5294
+  Our module modification is in gecko/stream-observer.js and
+  gecko/StreamSelection*.sys.mjs (MPL-2.0). See gecko/LICENSE-MPL-2.0.txt.
+  Modified MPL-covered source must be made available when distributed.
+
+CLI payloads are obtained from youtubedl-android 0.18.1 Maven packages:
+  https://github.com/yausername/youtubedl-android
+  Exact archives and checksums: gecko/runtime-provenance.json.
+  Only executable payloads, runtime dependencies and yt-dlp are extracted.
+  No classes.jar, Android wrapper classes, or wrapper source is linked/copied.
+  The packaging project's GPL license is not permission to remove licenses
+  from its payloads. Payload dependencies must be audited individually.
+
+yt-dlp — Unlicense; bundled builds may contain additional licensed code.
+  https://github.com/yt-dlp/yt-dlp
+  https://github.com/xibr/ytdlp-lazy
+CPython — Python Software Foundation License and bundled component licenses.
+  https://docs.python.org/3/license.html
+QuickJS — MIT and component notices.
+  https://bellard.org/quickjs/
+FFmpeg — LGPL/GPL depending on enabled components. This payload includes
+  GPL libraries; treat it as GPL pending an exact build/license inventory.
+  https://ffmpeg.org/legal.html
+aria2 — GPL-2.0-or-later with stated exceptions.
+  https://github.com/aria2/aria2
+  Binary runtime/build instructions:
+  https://github.com/yausername/youtubedl-android/blob/master/BUILD_PYTHON.md
+  https://github.com/yausername/youtubedl-android/blob/master/BUILD_FFMPEG.md
+
+The private prototype is not a distribution compliance package. Before
+public release, assemble full notices, exact corresponding third-party
+sources/build scripts and applicable offers, and review the boundary
+between the proprietary app and separately executed GPL programs.
+No claim is made that merely using separate processes resolves every
+licensing obligation. No third-party notices have intentionally been removed.

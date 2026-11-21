@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(stream_core LANGUAGES CXX)
+add_library(stream_core SHARED core.cpp)
+target_compile_features(stream_core PRIVATE cxx_std_20)
+target_link_options(stream_core PRIVATE -Wl,-z,max-page-size=16384)
